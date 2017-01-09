@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Template Widget for Beaver Builder
  * Plugin URI: https://wpbeaveraddons.com
- * Description: Display Beaver Builder saved templates in sidebar, footer or any other area.
+ * Description: Adds a widget to display Beaver Builder saved templates in sidebar, footer or any other area.
  * Version: 1.0.0
  * Author: Beaver Addons, Achal Jain
  * Author URI: https://wpbeaveraddons.com
