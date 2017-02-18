@@ -32,12 +32,18 @@ class BB_Template_Widget extends WP_Widget
     {
         $title = apply_filters( 'widget_title', $instance[ 'title' ] );
         $template = isset( $instance['template'] ) ? $instance['template'] : '';
+        $template_site = isset( $instance['template_site'] ) ? $instance['template_site'] : '';
 
         echo $args['before_title'] . $title . $args['after_title'];
 
         if ( $template && 'none' != $template ) {
             ob_start();
-            echo do_shortcode('[fl_builder_insert_layout id="'.$template.'"]');
+            if ( absint( $template_site ) == 1 ) {
+                echo do_shortcode('[fl_builder_insert_layout id="'.$template.'" site="1"]');
+            }
+            else {
+                echo do_shortcode('[fl_builder_insert_layout id="'.$template.'"]');
+            }
             echo ob_get_clean();
         }
     }
@@ -53,6 +59,7 @@ class BB_Template_Widget extends WP_Widget
     {
         $title          = ! empty( $instance['title'] ) ? $instance['title'] : '';
         $template       = isset( $instance['template'] ) ? $instance['template'] : 'none';
+        $template_site  = isset( $instance['template_site'] ) ? $instance['template_site'] : null;
         $saved_modules  = twbb_get_saved_templates( 'module' ); // Get saved modules.
         $saved_rows     = twbb_get_saved_templates( 'row' ); // Get saved rows.
         $saved_layouts  = twbb_get_saved_templates( 'layout' ); // Get saved layouts.
@@ -63,32 +70,34 @@ class BB_Template_Widget extends WP_Widget
         </p>
         <p>
             <label for="<?php echo $this->get_field_id( 'template' ); ?>">Select Template:</label>
-            <select class="widefat" id="<?php echo $this->get_field_id( 'template' ); ?>" name="<?php echo $this->get_field_name( 'template' ); ?>">
+            <select class="widefat bb-template-widget-select" id="<?php echo $this->get_field_id( 'template' ); ?>" name="<?php echo $this->get_field_name( 'template' ); ?>">
                 <option value="none"><?php _e( 'None', 'bb-template-widget' ); ?></option>
                 <?php if ( count( $saved_modules ) ) : ?>
                     <optgroup label="<?php _e( 'Saved Modules', 'bb-template-widget' ); ?>">
                         <?php foreach ( $saved_modules as $key => $value ) : ?>
-                            <option value="<?php echo $key; ?>"<?php echo $template == $key ? ' selected="selected"' : ''; ?>><?php echo $value; ?></option>
+                            <option data-site="<?php echo $value['site']; ?>" value="<?php echo $key; ?>"<?php echo $template == $key ? ' selected="selected"' : ''; ?>><?php echo $value['title']; ?></option>
                         <?php endforeach; ?>
                     </optgroup>
                 <?php endif; ?>
                 <?php if ( count( $saved_rows ) ) : ?>
                     <optgroup label="<?php _e( 'Saved Rows', 'bb-template-widget' ); ?>">
                         <?php foreach ( $saved_rows as $key => $value ) : ?>
-                            <option value="<?php echo $key; ?>"<?php echo $template == $key ? ' selected="selected"' : ''; ?>><?php echo $value; ?></option>
+                            <option data-site="<?php echo $value['site']; ?>" value="<?php echo $key; ?>"<?php echo $template == $key ? ' selected="selected"' : ''; ?>><?php echo $value['title']; ?></option>
                         <?php endforeach; ?>
                     </optgroup>
                 <?php endif; ?>
                 <?php if ( count( $saved_layouts ) ) : ?>
                     <optgroup label="<?php _e( 'Saved Layouts', 'bb-template-widget' ); ?>">
                         <?php foreach ( $saved_layouts as $key => $value ) : ?>
-                            <option value="<?php echo $key; ?>"<?php echo $template == $key ? ' selected="selected"' : ''; ?>><?php echo $value; ?></option>
+                            <option data-site="<?php echo $value['site']; ?>" value="<?php echo $key; ?>"<?php echo $template == $key ? ' selected="selected"' : ''; ?>><?php echo $value['title']; ?></option>
                         <?php endforeach; ?>
                     </optgroup>
                 <?php endif; ?>
             </select>
+            <input type="hidden" name="<?php echo $this->get_field_name( 'template_site' ); ?>" value="<?php echo $template_site; ?>" />
         </p>
         <?php
+        $this->print_footer_scripts();
     }
 
     /**
@@ -107,8 +116,23 @@ class BB_Template_Widget extends WP_Widget
 
         $instance[ 'title' ] = strip_tags( $new_instance[ 'title' ] );
         $instance[ 'template' ] = $new_instance[ 'template' ];
+        $instance[ 'template_site' ] = $new_instance[ 'template_site' ];
 
         return $instance;
+    }
+
+    public function print_footer_scripts()
+    {
+        ?>
+        <script type="text/javascript">
+        (function($) {
+            $('.bb-template-widget-select').on('change', function() {
+                var siteId = $(this).find('option:selected').data('site');
+                $(this).parent().find('input[type="hidden"]').val(siteId);
+            });
+        })(jQuery);
+        </script>
+        <?php
     }
 }
 

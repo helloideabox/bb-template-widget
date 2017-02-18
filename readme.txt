@@ -1,8 +1,8 @@
 === Template Widget for Beaver Builder ===
 Contributors: ideaboxcreations, ibachal
-Tags: beaver builder, beaver builder addon, beaver builder template, template widget, beaver builder widget, beaver builder template widget, widget, sidebar, beaver addons, page builder, page builder plugin, beaver builder extensions, front-end builder, drag and drop builder, editor, front-end editor, page layout, visual builder
+Tags: beaver builder, beaver builder addon, beaver builder template, template widget, beaver builder widget, beaver builder template widget, beaver addons, beaver builder extensions
 Requires at least: 3.6
-Tested up to: 4.7
+Tested up to: 4.7.2
 Stable tag: trunk
 License: GPL2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -39,7 +39,7 @@ You can display a Beaver Builder saved module or row or layout in sidebars, foot
 == Frequently Asked Questions ==
 
 = What's the requirement for using Template Widget for Beaver Builder? =
-You need Beaver Builder Pro or Agency plugin active for Dashboard Welcome to work.
+You need Beaver Builder Pro or Agency plugin active for Template Widget.
 
 = Do I need coding experience to use Template Widget for Beaver Builder? =
 Not at all! All you need to know about Beaver Builder.
@@ -52,6 +52,9 @@ Not at all! All you need to know about Beaver Builder.
 
 
 == Changelog ==
+
+= 1.0.1 - February 18, 2017 =
+*   Added multisite support
 
 = 1.0.0 - January 9, 2017 =
 *   Initial Release

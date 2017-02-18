@@ -29,10 +29,13 @@ You can display a Beaver Builder saved module or row or layout in sidebars, foot
 
 ### Frequently Asked Questions ###
 
-*   What's the requirement for using Template Widget for Beaver Builder? - You need Beaver Builder Pro or Agency plugin active for Dashboard Welcome to work.
+*   What's the requirement for using Template Widget for Beaver Builder? - You need Beaver Builder Pro or Agency plugin active for Template Widget.
 *   Do I need coding experience to use Template Widget for Beaver Builder? - Not at all! All you need to know about Beaver Builder.
 
 ### Changelog ###
+
+#### 1.0.1 - February 18, 2017 ####
+*   Added multisite support
 
 #### 1.0.0 - January 9, 2017 ####
 *   Initial Release
