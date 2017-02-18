@@ -123,6 +123,11 @@ class BB_Template_Widget extends WP_Widget
         return $instance;
     }
 
+    /**
+	 * Render script.
+	 *
+	 * @since 1.0.1
+     */
     public function print_scripts()
     {
         if ( is_multisite() ) {
