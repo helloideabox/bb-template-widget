@@ -94,10 +94,12 @@ class BB_Template_Widget extends WP_Widget
                     </optgroup>
                 <?php endif; ?>
             </select>
-            <input type="hidden" name="<?php echo $this->get_field_name( 'template_site' ); ?>" value="<?php echo $template_site; ?>" />
+            <?php if ( is_multisite() ) { ?>
+                <input type="hidden" name="<?php echo $this->get_field_name( 'template_site' ); ?>" value="<?php echo $template_site; ?>" />
+            <?php } ?>
         </p>
         <?php
-        $this->print_footer_scripts();
+        $this->print_scripts();
     }
 
     /**
@@ -121,8 +123,9 @@ class BB_Template_Widget extends WP_Widget
         return $instance;
     }
 
-    public function print_footer_scripts()
+    public function print_scripts()
     {
+        if ( is_multisite() ) {
         ?>
         <script type="text/javascript">
         (function($) {
@@ -133,6 +136,7 @@ class BB_Template_Widget extends WP_Widget
         })(jQuery);
         </script>
         <?php
+        }
     }
 }
 
